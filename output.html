@@ -1,0 +1,3627 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandarijn Leren - 2026-02-02 08:53</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f5f7fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --border-color: #e1e8ed;
+            --pinyin-color: #3498db;
+            --dutch-color: #e67e22;
+            --hover-bg: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--border-color);
+            color: var(--text-color);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .legend {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 12px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .original-text {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .original-text h3 {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        .original-text p {
+            font-size: 1.2rem;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        .dutch-translation {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FF9800;
+        }
+        
+        .dutch-translation h3 {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        .dutch-translation p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dutch-color);
+        }
+        
+        .dutch-translation em {
+            color: #888;
+            font-style: italic;
+        }
+        
+        .word-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .word-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--hover-bg);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-width: 80px;
+        }
+        
+        .word-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-color: var(--pinyin-color);
+        }
+        
+        .word-card.punctuation {
+            min-width: auto;
+            padding: 12px 8px;
+            background: transparent;
+        }
+        
+        .word-card.punctuation:hover {
+            transform: none;
+            box-shadow: none;
+            border-color: transparent;
+        }
+        
+        .chinese {
+            font-size: 1.8rem;
+            font-family: 'Noto Sans SC', sans-serif;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        
+        .pinyin {
+            font-size: 1rem;
+            color: var(--pinyin-color);
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        
+        .dutch {
+            font-size: 0.85rem;
+            color: var(--dutch-color);
+            font-weight: 500;
+            text-align: center;
+            max-width: 120px;
+            word-wrap: break-word;
+        }
+        
+        .hsk-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2c3e50;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            z-index: 1000;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 8px solid transparent;
+            border-top-color: #2c3e50;
+        }
+        
+        .word-card:hover .tooltip {
+            display: block;
+        }
+        
+        .tooltip-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        
+        .tooltip-label {
+            color: #95a5a6;
+        }
+        
+        .breakdown {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #34495e;
+        }
+        
+        .breakdown-char {
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 5px;
+        }
+        
+        .vocabulary-list {
+            margin-top: 30px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+        }
+        
+        .vocabulary-list h2 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .vocab-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .vocab-table th,
+        .vocab-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .vocab-table th {
+            font-weight: 600;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        .vocab-table tr:hover {
+            background: var(--hover-bg);
+        }
+        
+        .copy-btn, .audio-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover, .audio-btn:hover {
+            background: var(--border-color);
+        }
+        
+        .audio-btn {
+            font-size: 1.1rem;
+        }
+        
+        .audio-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .audio-btn.playing {
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .word-audio-btn {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .word-audio-btn:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+        
+        .word-audio-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .word-card {
+                min-width: 70px;
+                padding: 10px 12px;
+            }
+            
+            .chinese {
+                font-size: 1.5rem;
+            }
+            
+            .pinyin {
+                font-size: 0.9rem;
+            }
+            
+            .dutch {
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .controls, .btn {
+                display: none;
+            }
+            
+            .word-card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇨🇳 Mandarijn Leren 🇳🇱</h1>
+            <p class="subtitle">Chinese tekst met Pinyin en Nederlandse vertaling</p>
+            <div class="controls">
+                <button class="btn btn-primary" onclick="toggleDarkMode()">
+                    🌙 Donkere modus
+                </button>
+                <button class="btn btn-secondary" onclick="window.print()">
+                    🖨️ Afdrukken
+                </button>
+                <button class="btn btn-secondary" onclick="copyAllVocab()">
+                    📋 Kopieer woordenlijst
+                </button>
+            </div>
+        </header>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #4CAF50;"></span>
+                <span>HSK 1 (Beginner)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #8BC34A;"></span>
+                <span>HSK 2 (Elementair)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #FFC107;"></span>
+                <span>HSK 3 (Gemiddeld)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #FF9800;"></span>
+                <span>HSK 4 (Bovengemiddeld)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #FF5722;"></span>
+                <span>HSK 5 (Gevorderd)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #F44336;"></span>
+                <span>HSK 6 (Meesterschap)</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot" style="background: #9E9E9E;"></span>
+                <span>Onbekend niveau</span>
+            </div>
+        </div>
+        
+        <div class="original-text">
+            <h3>📝 Originele tekst (Chinees)</h3>
+            <p>约翰​的​生活​很​简朴。他​穿​的​是​骆驼​毛​做​的​衣服，吃​的​是​蝗虫​和​野地​里​的​蜂蜜。人们​都​对​他​很​好奇，就​连​骄傲​的​法利赛派​和​撒都该派​的​人​也​来​见​他。约翰​对​这些​骄傲​的​人​说：“你们​要​改过自新。虽然​你们​说​自己​是​亚伯拉罕​的​后代，但​并​不​表明​你们​有​多​了不起，也​不​表明​你们​就是​上帝​的​子民。”</p>
+        </div>
+        
+        <div class="dutch-translation">
+            <h3>🇳🇱 Nederlandse vertaling</h3>
+            <p>Johannes leefde heel eenvoudig. Hij droeg kleren van kameelhaar en hij at sprinkhanen en wilde honing. De mensen waren heel nieuwsgierig naar Johannes. Zelfs de trotse farizeeën en sadduceeën kwamen kijken. Johannes zei tegen ze: ‘Jullie moeten berouw hebben en veranderen. Denk maar niet dat jullie bijzonder zijn. Jullie zeggen dat jullie kinderen van Abraham zijn, maar dat betekent nog niet dat jullie kinderen van God zijn.’</p>
+        </div>
+        
+        <div class="word-grid">
+
+            <div class="word-card" onclick="copyWord('约翰')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 6</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">约 = to restrict/covenant</span><span class="breakdown-char">翰 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('约翰', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #F44336;">
+                    6
+                </span>
+                <span class="chinese">约翰</span>
+                <span class="pinyin">yuēhàn</span>
+                <span class="dutch">John</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('生活')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">生 = life/to be born/student</span><span class="breakdown-char">活 = to live/alive</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('生活', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">生活</span>
+                <span class="pinyin">shēnghuó</span>
+                <span class="dutch">Leven</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('很')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('很', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">很</span>
+                <span class="pinyin">hěn</span>
+                <span class="dutch">erg</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('简朴')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">简 = ?</span><span class="breakdown-char">朴 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('简朴', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">简朴</span>
+                <span class="pinyin">jiǎnpiáo</span>
+                <span class="dutch">eenvoudig</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">。</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('他')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('他', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">他</span>
+                <span class="pinyin">tā</span>
+                <span class="dutch">Hij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('穿')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('穿', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">穿</span>
+                <span class="pinyin">chuān</span>
+                <span class="dutch">dragen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('是')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('是', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">是</span>
+                <span class="pinyin">shì</span>
+                <span class="dutch">Ja</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('骆驼')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">骆 = ?</span><span class="breakdown-char">驼 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('骆驼', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">骆驼</span>
+                <span class="pinyin">luòtuó</span>
+                <span class="dutch">kameel</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('毛')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('毛', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">毛</span>
+                <span class="pinyin">máo</span>
+                <span class="dutch">haar</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('做')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('做', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">做</span>
+                <span class="pinyin">zuò</span>
+                <span class="dutch">Doen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('衣服')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">衣 = clothing</span><span class="breakdown-char">服 = clothes/to serve</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('衣服', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">衣服</span>
+                <span class="pinyin">yīfú</span>
+                <span class="dutch">kleding</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">，</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('吃')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('吃', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">吃</span>
+                <span class="pinyin">chī</span>
+                <span class="dutch">eten</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('是')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('是', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">是</span>
+                <span class="pinyin">shì</span>
+                <span class="dutch">Ja</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('蝗虫')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">蝗 = ?</span><span class="breakdown-char">虫 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('蝗虫', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">蝗虫</span>
+                <span class="pinyin">huángchóng</span>
+                <span class="dutch">sprinkhaan</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('和')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('和', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">和</span>
+                <span class="pinyin">hé</span>
+                <span class="dutch">En</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('野地')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">野 = wild/field</span><span class="breakdown-char">地 = earth/ground</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('野地', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">野地</span>
+                <span class="pinyin">yědì</span>
+                <span class="dutch">wildernis</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('里')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('里', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">里</span>
+                <span class="pinyin">lǐ</span>
+                <span class="dutch">binnen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('蜂蜜')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">蜂 = ?</span><span class="breakdown-char">蜜 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('蜂蜜', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">蜂蜜</span>
+                <span class="pinyin">fēngmì</span>
+                <span class="dutch">Honing</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">。</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('人们')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">人 = person</span><span class="breakdown-char">们 = plural marker</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('人们', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">人们</span>
+                <span class="pinyin">rénmen</span>
+                <span class="dutch">mensen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('都')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('都', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">都</span>
+                <span class="pinyin">dōu</span>
+                <span class="dutch">Alle</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('对')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('对', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">对</span>
+                <span class="pinyin">duì</span>
+                <span class="dutch">rechts</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('他')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('他', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">他</span>
+                <span class="pinyin">tā</span>
+                <span class="dutch">Hij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('很')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('很', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">很</span>
+                <span class="pinyin">hěn</span>
+                <span class="dutch">erg</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('好奇')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">好 = good</span><span class="breakdown-char">奇 = strange/wonder</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('好奇', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">好奇</span>
+                <span class="pinyin">hàoqí</span>
+                <span class="dutch">nieuwsgierig</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">，</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('就')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('就', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">就</span>
+                <span class="pinyin">jiù</span>
+                <span class="dutch">In één keer</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('连')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('连', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">连</span>
+                <span class="pinyin">lián</span>
+                <span class="dutch">zelfs</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('骄傲')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">骄 = ?</span><span class="breakdown-char">傲 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('骄傲', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">骄傲</span>
+                <span class="pinyin">jiāoào</span>
+                <span class="dutch">trots</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('法利赛')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">法 = law/method</span><span class="breakdown-char">利 = benefit/sharp</span><span class="breakdown-char">赛 = competition</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('法利赛', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">法利赛</span>
+                <span class="pinyin">fǎlìsài</span>
+                <span class="dutch">Farizeeër</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('派')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 4</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('派', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FF9800;">
+                    4
+                </span>
+                <span class="chinese">派</span>
+                <span class="pinyin">pài</span>
+                <span class="dutch">groep</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('和')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('和', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">和</span>
+                <span class="pinyin">hé</span>
+                <span class="dutch">En</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('撒')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>Onbekend</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('撒', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #9E9E9E;">
+                    ?
+                </span>
+                <span class="chinese">撒</span>
+                <span class="pinyin">sā</span>
+                <span class="dutch">spreiding</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('都')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('都', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">都</span>
+                <span class="pinyin">dōu</span>
+                <span class="dutch">Alle</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('该')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>Onbekend</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('该', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #9E9E9E;">
+                    ?
+                </span>
+                <span class="chinese">该</span>
+                <span class="pinyin">gāi</span>
+                <span class="dutch">Zou moeten</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('派')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 4</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('派', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FF9800;">
+                    4
+                </span>
+                <span class="chinese">派</span>
+                <span class="pinyin">pài</span>
+                <span class="dutch">groep</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('人')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('人', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">人</span>
+                <span class="pinyin">rén</span>
+                <span class="dutch">mensen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('也')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('也', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">也</span>
+                <span class="pinyin">yě</span>
+                <span class="dutch">Ook</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('来')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('来', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">来</span>
+                <span class="pinyin">lái</span>
+                <span class="dutch">Komen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('见')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>Onbekend</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('见', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #9E9E9E;">
+                    ?
+                </span>
+                <span class="chinese">见</span>
+                <span class="pinyin">jiàn</span>
+                <span class="dutch">Zien</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('他')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('他', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">他</span>
+                <span class="pinyin">tā</span>
+                <span class="dutch">Hij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">。</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('约翰')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 6</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">约 = to restrict/covenant</span><span class="breakdown-char">翰 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('约翰', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #F44336;">
+                    6
+                </span>
+                <span class="chinese">约翰</span>
+                <span class="pinyin">yuēhàn</span>
+                <span class="dutch">John</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('对')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('对', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">对</span>
+                <span class="pinyin">duì</span>
+                <span class="dutch">rechts</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('这些')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">这 = this</span><span class="breakdown-char">些 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('这些', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">这些</span>
+                <span class="pinyin">zhèxiē</span>
+                <span class="dutch">Deze</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('骄傲')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">骄 = ?</span><span class="breakdown-char">傲 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('骄傲', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">骄傲</span>
+                <span class="pinyin">jiāoào</span>
+                <span class="dutch">trots</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('人')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('人', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">人</span>
+                <span class="pinyin">rén</span>
+                <span class="dutch">mensen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('说')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('说', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">说</span>
+                <span class="pinyin">shuō</span>
+                <span class="dutch">uitleggen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">：</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">“</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('你们')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">你 = you</span><span class="breakdown-char">们 = plural marker</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('你们', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">你们</span>
+                <span class="pinyin">nǐmen</span>
+                <span class="dutch">Jij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('要')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>Onbekend</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('要', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #9E9E9E;">
+                    ?
+                </span>
+                <span class="chinese">要</span>
+                <span class="pinyin">yào</span>
+                <span class="dutch">wil</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('改过自新')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">改 = to change</span><span class="breakdown-char">过 = to pass</span><span class="breakdown-char">自 = ?</span><span class="breakdown-char">新 = new</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('改过自新', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">改过自新</span>
+                <span class="pinyin">gǎiguòzìxīn</span>
+                <span class="dutch">iemands manieren verbeteren</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">。</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('虽然')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">虽 = ?</span><span class="breakdown-char">然 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('虽然', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">虽然</span>
+                <span class="pinyin">suīrán</span>
+                <span class="dutch">Hoewel</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('你们')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">你 = you</span><span class="breakdown-char">们 = plural marker</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('你们', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">你们</span>
+                <span class="pinyin">nǐmen</span>
+                <span class="dutch">Jij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('说')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('说', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">说</span>
+                <span class="pinyin">shuō</span>
+                <span class="dutch">uitleggen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('自己')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">自 = ?</span><span class="breakdown-char">己 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('自己', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">自己</span>
+                <span class="pinyin">zìjǐ</span>
+                <span class="dutch">Eigen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('是')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('是', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">是</span>
+                <span class="pinyin">shì</span>
+                <span class="dutch">Ja</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('亚伯拉罕')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 6</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">亚 = Asia/second</span><span class="breakdown-char">伯 = uncle/earl</span><span class="breakdown-char">拉 = to pull</span><span class="breakdown-char">罕 = rare</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('亚伯拉罕', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #F44336;">
+                    6
+                </span>
+                <span class="chinese">亚伯拉罕</span>
+                <span class="pinyin">yàbólāhǎn</span>
+                <span class="dutch">Abraham</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('后代')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">后 = back/after</span><span class="breakdown-char">代 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('后代', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">后代</span>
+                <span class="pinyin">hòudài</span>
+                <span class="dutch">Afstammelingen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">，</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('但')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>Onbekend</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Rare</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('但', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #9E9E9E;">
+                    ?
+                </span>
+                <span class="chinese">但</span>
+                <span class="pinyin">dàn</span>
+                <span class="dutch">Maar</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('并')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 4</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('并', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FF9800;">
+                    4
+                </span>
+                <span class="chinese">并</span>
+                <span class="pinyin">bìng</span>
+                <span class="dutch">En</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('不')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('不', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">不</span>
+                <span class="pinyin">bù</span>
+                <span class="dutch">Nee</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('表明')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">表 = watch/surface/to express</span><span class="breakdown-char">明 = bright/tomorrow</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('表明', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">表明</span>
+                <span class="pinyin">biǎomíng</span>
+                <span class="dutch">show</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('你们')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">你 = you</span><span class="breakdown-char">们 = plural marker</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('你们', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">你们</span>
+                <span class="pinyin">nǐmen</span>
+                <span class="dutch">Jij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('有')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('有', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">有</span>
+                <span class="pinyin">yǒu</span>
+                <span class="dutch">hebben</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('多')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('多', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">多</span>
+                <span class="pinyin">duō</span>
+                <span class="dutch">veel</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('了不起')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">了 = completed action</span><span class="breakdown-char">不 = not</span><span class="breakdown-char">起 = to rise</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('了不起', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">了不起</span>
+                <span class="pinyin">liǎobùqǐ</span>
+                <span class="dutch">verbazingwekkend</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">，</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('也')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('也', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">也</span>
+                <span class="pinyin">yě</span>
+                <span class="dutch">Ook</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('不')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('不', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">不</span>
+                <span class="pinyin">bù</span>
+                <span class="dutch">Nee</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('表明')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 3</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">表 = watch/surface/to express</span><span class="breakdown-char">明 = bright/tomorrow</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('表明', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FFC107;">
+                    3
+                </span>
+                <span class="chinese">表明</span>
+                <span class="pinyin">biǎomíng</span>
+                <span class="dutch">show</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('你们')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">你 = you</span><span class="breakdown-char">们 = plural marker</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('你们', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">你们</span>
+                <span class="pinyin">nǐmen</span>
+                <span class="dutch">Jij</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('就是')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 2</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">就 = ?</span><span class="breakdown-char">是 = to be</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('就是', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #8BC34A;">
+                    2
+                </span>
+                <span class="chinese">就是</span>
+                <span class="pinyin">jiùshì</span>
+                <span class="dutch">dat is</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('上帝')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 5</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Moderate</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">上 = up/above</span><span class="breakdown-char">帝 = ?</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('上帝', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #FF5722;">
+                    5
+                </span>
+                <span class="chinese">上帝</span>
+                <span class="pinyin">shàngdì</span>
+                <span class="dutch">God</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('的')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 1</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Very Common</span>
+                    </div>
+                    
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #4CAF50;">
+                    1
+                </span>
+                <span class="chinese">的</span>
+                <span class="pinyin">de</span>
+                <span class="dutch">van</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">​</span>
+            </div>
+
+            <div class="word-card" onclick="copyWord('子民')">
+                <div class="tooltip">
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Niveau:</span>
+                        <span>HSK 6</span>
+                    </div>
+                    <div class="tooltip-row">
+                        <span class="tooltip-label">Frequentie:</span>
+                        <span>Less Common</span>
+                    </div>
+                    <div class="breakdown"><strong>Karakters:</strong><br><span class="breakdown-char">子 = child/suffix</span><span class="breakdown-char">民 = people</span></div>
+                    <div style="margin-top: 8px; font-size: 0.7rem; color: #95a5a6;">
+                        Klik om te kopiëren | 🔊 voor audio
+                    </div>
+                </div>
+                <button class="word-audio-btn" onclick="event.stopPropagation(); speakChinese('子民', this)" title="Uitspraak beluisteren">🔊</button>
+                <span class="hsk-badge" style="background: #F44336;">
+                    6
+                </span>
+                <span class="chinese">子民</span>
+                <span class="pinyin">zimín</span>
+                <span class="dutch">mensen</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">。</span>
+            </div>
+
+            <div class="word-card punctuation">
+                <span class="chinese">”</span>
+            </div>
+
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">80</div>
+                <div class="stat-label">Totaal woorden</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">52</div>
+                <div class="stat-label">Unieke woorden</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">116</div>
+                <div class="stat-label">Totaal karakters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">27</div>
+                <div class="stat-label">HSK 1-2 woorden</div>
+            </div>
+        </div>
+        
+        <div class="vocabulary-list">
+            <h2>📚 Woordenlijst</h2>
+            <table class="vocab-table">
+                <thead>
+                    <tr>
+                        <th>Chinees</th>
+                        <th>Pinyin</th>
+                        <th>Nederlands</th>
+                        <th>HSK</th>
+                        <th>Audio</th>
+                        <th>Kopiëren</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">约翰</td>
+                        <td style="color: var(--pinyin-color);">yuēhàn</td>
+                        <td style="color: var(--dutch-color);">John</td>
+                        <td><span style="color: #F44336; font-weight: bold;">HSK 6</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('约翰', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('约翰')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">的</td>
+                        <td style="color: var(--pinyin-color);">de</td>
+                        <td style="color: var(--dutch-color);">van</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('的', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('的')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">生活</td>
+                        <td style="color: var(--pinyin-color);">shēnghuó</td>
+                        <td style="color: var(--dutch-color);">Leven</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('生活', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('生活')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">很</td>
+                        <td style="color: var(--pinyin-color);">hěn</td>
+                        <td style="color: var(--dutch-color);">erg</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('很', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('很')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">简朴</td>
+                        <td style="color: var(--pinyin-color);">jiǎnpiáo</td>
+                        <td style="color: var(--dutch-color);">eenvoudig</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('简朴', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('简朴')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">他</td>
+                        <td style="color: var(--pinyin-color);">tā</td>
+                        <td style="color: var(--dutch-color);">Hij</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('他', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('他')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">穿</td>
+                        <td style="color: var(--pinyin-color);">chuān</td>
+                        <td style="color: var(--dutch-color);">dragen</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('穿', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('穿')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">是</td>
+                        <td style="color: var(--pinyin-color);">shì</td>
+                        <td style="color: var(--dutch-color);">Ja</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('是', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('是')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">骆驼</td>
+                        <td style="color: var(--pinyin-color);">luòtuó</td>
+                        <td style="color: var(--dutch-color);">kameel</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('骆驼', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('骆驼')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">毛</td>
+                        <td style="color: var(--pinyin-color);">máo</td>
+                        <td style="color: var(--dutch-color);">haar</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('毛', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('毛')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">做</td>
+                        <td style="color: var(--pinyin-color);">zuò</td>
+                        <td style="color: var(--dutch-color);">Doen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('做', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('做')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">衣服</td>
+                        <td style="color: var(--pinyin-color);">yīfú</td>
+                        <td style="color: var(--dutch-color);">kleding</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('衣服', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('衣服')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">吃</td>
+                        <td style="color: var(--pinyin-color);">chī</td>
+                        <td style="color: var(--dutch-color);">eten</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('吃', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('吃')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">蝗虫</td>
+                        <td style="color: var(--pinyin-color);">huángchóng</td>
+                        <td style="color: var(--dutch-color);">sprinkhaan</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('蝗虫', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('蝗虫')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">和</td>
+                        <td style="color: var(--pinyin-color);">hé</td>
+                        <td style="color: var(--dutch-color);">En</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('和', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('和')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">野地</td>
+                        <td style="color: var(--pinyin-color);">yědì</td>
+                        <td style="color: var(--dutch-color);">wildernis</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('野地', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('野地')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">里</td>
+                        <td style="color: var(--pinyin-color);">lǐ</td>
+                        <td style="color: var(--dutch-color);">binnen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('里', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('里')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">蜂蜜</td>
+                        <td style="color: var(--pinyin-color);">fēngmì</td>
+                        <td style="color: var(--dutch-color);">Honing</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('蜂蜜', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('蜂蜜')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">人们</td>
+                        <td style="color: var(--pinyin-color);">rénmen</td>
+                        <td style="color: var(--dutch-color);">mensen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('人们', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('人们')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">都</td>
+                        <td style="color: var(--pinyin-color);">dōu</td>
+                        <td style="color: var(--dutch-color);">Alle</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('都', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('都')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">对</td>
+                        <td style="color: var(--pinyin-color);">duì</td>
+                        <td style="color: var(--dutch-color);">rechts</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('对', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('对')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">好奇</td>
+                        <td style="color: var(--pinyin-color);">hàoqí</td>
+                        <td style="color: var(--dutch-color);">nieuwsgierig</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('好奇', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('好奇')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">就</td>
+                        <td style="color: var(--pinyin-color);">jiù</td>
+                        <td style="color: var(--dutch-color);">In één keer</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('就', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('就')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">连</td>
+                        <td style="color: var(--pinyin-color);">lián</td>
+                        <td style="color: var(--dutch-color);">zelfs</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('连', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('连')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">骄傲</td>
+                        <td style="color: var(--pinyin-color);">jiāoào</td>
+                        <td style="color: var(--dutch-color);">trots</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('骄傲', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('骄傲')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">法利赛</td>
+                        <td style="color: var(--pinyin-color);">fǎlìsài</td>
+                        <td style="color: var(--dutch-color);">Farizeeër</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('法利赛', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('法利赛')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">派</td>
+                        <td style="color: var(--pinyin-color);">pài</td>
+                        <td style="color: var(--dutch-color);">groep</td>
+                        <td><span style="color: #FF9800; font-weight: bold;">HSK 4</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('派', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('派')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">撒</td>
+                        <td style="color: var(--pinyin-color);">sā</td>
+                        <td style="color: var(--dutch-color);">spreiding</td>
+                        <td><span style="color: #9E9E9E; font-weight: bold;">-</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('撒', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('撒')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">该</td>
+                        <td style="color: var(--pinyin-color);">gāi</td>
+                        <td style="color: var(--dutch-color);">Zou moeten</td>
+                        <td><span style="color: #9E9E9E; font-weight: bold;">-</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('该', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('该')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">人</td>
+                        <td style="color: var(--pinyin-color);">rén</td>
+                        <td style="color: var(--dutch-color);">mensen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('人', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('人')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">也</td>
+                        <td style="color: var(--pinyin-color);">yě</td>
+                        <td style="color: var(--dutch-color);">Ook</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('也', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('也')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">来</td>
+                        <td style="color: var(--pinyin-color);">lái</td>
+                        <td style="color: var(--dutch-color);">Komen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('来', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('来')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">见</td>
+                        <td style="color: var(--pinyin-color);">jiàn</td>
+                        <td style="color: var(--dutch-color);">Zien</td>
+                        <td><span style="color: #9E9E9E; font-weight: bold;">-</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('见', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('见')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">这些</td>
+                        <td style="color: var(--pinyin-color);">zhèxiē</td>
+                        <td style="color: var(--dutch-color);">Deze</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('这些', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('这些')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">说</td>
+                        <td style="color: var(--pinyin-color);">shuō</td>
+                        <td style="color: var(--dutch-color);">uitleggen</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('说', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('说')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">你们</td>
+                        <td style="color: var(--pinyin-color);">nǐmen</td>
+                        <td style="color: var(--dutch-color);">Jij</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('你们', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('你们')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">要</td>
+                        <td style="color: var(--pinyin-color);">yào</td>
+                        <td style="color: var(--dutch-color);">wil</td>
+                        <td><span style="color: #9E9E9E; font-weight: bold;">-</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('要', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('要')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">改过自新</td>
+                        <td style="color: var(--pinyin-color);">gǎiguòzìxīn</td>
+                        <td style="color: var(--dutch-color);">iemands manieren verbeteren</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('改过自新', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('改过自新')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">虽然</td>
+                        <td style="color: var(--pinyin-color);">suīrán</td>
+                        <td style="color: var(--dutch-color);">Hoewel</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('虽然', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('虽然')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">自己</td>
+                        <td style="color: var(--pinyin-color);">zìjǐ</td>
+                        <td style="color: var(--dutch-color);">Eigen</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('自己', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('自己')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">亚伯拉罕</td>
+                        <td style="color: var(--pinyin-color);">yàbólāhǎn</td>
+                        <td style="color: var(--dutch-color);">Abraham</td>
+                        <td><span style="color: #F44336; font-weight: bold;">HSK 6</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('亚伯拉罕', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('亚伯拉罕')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">后代</td>
+                        <td style="color: var(--pinyin-color);">hòudài</td>
+                        <td style="color: var(--dutch-color);">Afstammelingen</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('后代', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('后代')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">但</td>
+                        <td style="color: var(--pinyin-color);">dàn</td>
+                        <td style="color: var(--dutch-color);">Maar</td>
+                        <td><span style="color: #9E9E9E; font-weight: bold;">-</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('但', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('但')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">并</td>
+                        <td style="color: var(--pinyin-color);">bìng</td>
+                        <td style="color: var(--dutch-color);">En</td>
+                        <td><span style="color: #FF9800; font-weight: bold;">HSK 4</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('并', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('并')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">不</td>
+                        <td style="color: var(--pinyin-color);">bù</td>
+                        <td style="color: var(--dutch-color);">Nee</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('不', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('不')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">表明</td>
+                        <td style="color: var(--pinyin-color);">biǎomíng</td>
+                        <td style="color: var(--dutch-color);">show</td>
+                        <td><span style="color: #FFC107; font-weight: bold;">HSK 3</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('表明', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('表明')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">有</td>
+                        <td style="color: var(--pinyin-color);">yǒu</td>
+                        <td style="color: var(--dutch-color);">hebben</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('有', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('有')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">多</td>
+                        <td style="color: var(--pinyin-color);">duō</td>
+                        <td style="color: var(--dutch-color);">veel</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('多', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('多')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">了不起</td>
+                        <td style="color: var(--pinyin-color);">liǎobùqǐ</td>
+                        <td style="color: var(--dutch-color);">verbazingwekkend</td>
+                        <td><span style="color: #4CAF50; font-weight: bold;">HSK 1</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('了不起', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('了不起')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">就是</td>
+                        <td style="color: var(--pinyin-color);">jiùshì</td>
+                        <td style="color: var(--dutch-color);">dat is</td>
+                        <td><span style="color: #8BC34A; font-weight: bold;">HSK 2</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('就是', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('就是')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">上帝</td>
+                        <td style="color: var(--pinyin-color);">shàngdì</td>
+                        <td style="color: var(--dutch-color);">God</td>
+                        <td><span style="color: #FF5722; font-weight: bold;">HSK 5</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('上帝', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('上帝')">📋</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="font-family: 'Noto Sans SC', sans-serif; font-size: 1.2rem;">子民</td>
+                        <td style="color: var(--pinyin-color);">zimín</td>
+                        <td style="color: var(--dutch-color);">mensen</td>
+                        <td><span style="color: #F44336; font-weight: bold;">HSK 6</span></td>
+                        <td>
+                            <button class="audio-btn" onclick="speakChinese('子民', this)" title="Uitspraak beluisteren">🔊</button>
+                        </td>
+                        <td>
+                            <button class="copy-btn" onclick="copyWord('子民')">📋</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        
+        <footer>
+            <p>Gegenereerd op 2026-02-02 08:53:56</p>
+            <p>💡 Tip: Klik op 🔊 voor uitspraak, klik op een woord om te kopiëren. Hover voor meer informatie.</p>
+        </footer>
+    </div>
+    
+    <div class="notification" id="notification">
+        ✓ Gekopieerd naar klembord!
+    </div>
+    
+    <script>
+        // Text-to-Speech for Chinese pronunciation
+        let currentUtterance = null;
+        
+        function speakChinese(text, button) {
+            // Cancel any ongoing speech
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+            }
+            
+            // Check if Web Speech API is supported
+            if (!('speechSynthesis' in window)) {
+                alert('Je browser ondersteunt geen spraaksynthese. Probeer Chrome, Edge of Safari.');
+                return;
+            }
+            
+            // Create utterance
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;  // Slightly slower for learning
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Try to find a Chinese voice
+            const voices = window.speechSynthesis.getVoices();
+            const chineseVoice = voices.find(voice =>
+                voice.lang.includes('zh') ||
+                voice.lang.includes('cmn') ||
+                voice.name.toLowerCase().includes('chinese')
+            );
+            
+            if (chineseVoice) {
+                utterance.voice = chineseVoice;
+            }
+            
+            // Visual feedback
+            if (button) {
+                button.classList.add('playing');
+            }
+            
+            utterance.onend = () => {
+                if (button) {
+                    button.classList.remove('playing');
+                }
+            };
+            
+            utterance.onerror = (event) => {
+                if (button) {
+                    button.classList.remove('playing');
+                }
+                console.error('Speech synthesis error:', event.error);
+            };
+            
+            // Speak
+            window.speechSynthesis.speak(utterance);
+        }
+        
+        // Load voices (needed for some browsers)
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+        
+        function copyWord(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification();
+            });
+        }
+        
+        function showNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+        
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            if (isDark) {
+                document.documentElement.style.setProperty('--bg-color', '#1a1a2e');
+                document.documentElement.style.setProperty('--text-color', '#eaeaea');
+                document.documentElement.style.setProperty('--card-bg', '#16213e');
+                document.documentElement.style.setProperty('--border-color', '#0f3460');
+                document.documentElement.style.setProperty('--hover-bg', '#0f3460');
+            } else {
+                document.documentElement.style.setProperty('--bg-color', '#f5f7fa');
+                document.documentElement.style.setProperty('--text-color', '#2c3e50');
+                document.documentElement.style.setProperty('--card-bg', '#ffffff');
+                document.documentElement.style.setProperty('--border-color', '#e1e8ed');
+                document.documentElement.style.setProperty('--hover-bg', '#f8f9fa');
+            }
+        }
+        
+        function copyAllVocab() {
+            const rows = document.querySelectorAll('.vocab-table tbody tr');
+            let text = 'Chinees\tPinyin\tNederlands\tHSK\n';
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                text += `${cells[0].textContent}\t${cells[1].textContent}\t${cells[2].textContent}\t${cells[3].textContent}\n`;
+            });
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification();
+            });
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'd') {
+                e.preventDefault();
+                toggleDarkMode();
+            }
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    </script>
+</body>
+</html>
